@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Match Data Definitions</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #4b3f28;
+        }
+        h2 {
+            background-color: #6b705c;
+            color: #fff;
+            padding: 10px;
+            margin: 20px 0 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .note {
+            font-style: italic;
+            color: #4b3f28;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+        td:first-child {
+            background-color: #413b66; /* Brownish color for the first column */
+            color: #fff;
+            font-weight: normal;
+        }
+        tr:first-child {
+            display: none; /* Hide the header row */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tennis Match Data Definitions</h1>
+
+        <h2>Tournament Related</h2>
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>tourney_id</td>
+                <td>A unique identifier for each tournament, such as 2020-888. The exact formats are borrowed from several different sources, so while the first four characters are always the year, the rest of the ID doesn't follow a predictable structure.</td>
+            </tr>
+            <tr>
+                <td>tourney_name</td>
+                <td>Self-explanatory. Such as : 'Adelaide', 'Doha', 'Chennai', 'Australian Open', 'US Open', or 'Wimbledon'</td>
+            </tr>
+            <tr>
+                <td>surface</td>
+                <td>Self-explanatory in between Hard, Carpet, Clay, or Grass</td>
+            </tr>
+            <tr>
+                <td>draw_size</td>
+                <td>Number of players in the draw, often rounded up to the nearest power of 2. (For instance, a tournament with 28 players may be shown as 32.)</td>
+            </tr>
+            <tr>
+                <td>tourney_level</td>
+                <td>
+                    For men: 'G' = Grand Slams, 'M' = Masters 1000s, 'A' = other tour-level events, 'C' = Challengers, 'S' = Satellites/ITFs, 'F' = Tour finals and other season-ending events, and 'D' = Davis Cup.<br>
+                    For women: Additional codes include 'P' = Premier, 'PM' = Premier Mandatory, 'I' = International. ITF levels are given by prize money, such as '15' = ITF $15,000. Older WTA codes include 'T1' for Tier I, and 'D' for Federation/Fed/Billie Jean King Cup.<br>
+                    Others: 'E' = exhibition, 'J' = juniors, 'T' = team tennis (not yet in the dataset).
+                </td>
+            </tr>
+            <tr>
+                <td>tourney_date</td>
+                <td>Eight digits, YYYYMMDD, usually the Monday of the tournament week.</td>
+            </tr>
+            <tr>
+                <td>match_num</td>
+                <td>A match-specific identifier. Often starting from 1, sometimes counting down from 300, and sometimes arbitrary.</td>
+            </tr>
+        </table>
+
+        <h2>Player Related</h2>
+        <p class="note">Note: The values for player-related fields appear for both the winner and loser, with suffixes 'winner_' for player=winner and 'loser_' for player=loser.</p>
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>player_id</td>
+                <td>The player_id used in this repo for the player of the match.</td>
+            </tr>
+            <tr>
+                <td>player_seed</td>
+                <td>Self-explanatory.</td>
+            </tr>
+            <tr>
+                <td>player_entry</td>
+                <td>'WC' = wild card, 'Q' = qualifier, 'LL' = lucky loser, 'PR' = protected ranking, 'ALT'= alternates, 'ITF' = ITF entry, and there are a few others that are occasionally used.</td>
+            </tr>
+            <tr>
+                <td>player_name</td>
+                <td>Self-explanatory.</td>
+            </tr>
+            <tr>
+                <td>player_hand</td>
+                <td>R = right, L = left, U = unknown. For ambidextrous players, this is their serving hand.</td>
+            </tr>
+            <tr>
+                <td>player_ht</td>
+                <td>Height in centimeters, where available.</td>
+            </tr>
+            <tr>
+                <td>player_ioc</td>
+                <td>Three-character country code.</td>
+            </tr>
+            <tr>
+                <td>player_age</td>
+                <td>Age, in years, as of the tourney_date.</td>
+            </tr>
+            <tr>
+                <td>player_rank</td>
+                <td>Player's ATP or WTA rank, as of the tourney_date, or the most recent ranking date before the tourney_date.</td>
+            </tr>
+            <tr>
+                <td>player_rank_points</td>
+                <td>Number of ranking points, where available.</td>
+            </tr>
+        </table>
+
+        <h2>Performance Stats</h2>
+        <p class="note">Note: The values for player-related fields appear for both the winner and loser, with suffixes 'w_' for winner and 'l_' for loser.</p>
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>p_ace</td>
+                <td>Player's number of aces.</td>
+            </tr>
+            <tr>
+                <td>p_df</td>
+                <td>Player's number of double faults.</td>
+            </tr>
+            <tr>
+                <td>p_svpt</td>
+                <td>Player's number of serve points.</td>
+            </tr>
+            <tr>
+                <td>p_1stIn</td>
+                <td>Player's number of first serves made.</td>
+            </tr>
+            <tr>
+                <td>p_1stWon</td>
+                <td>Player's number of first-serve points won.</td>
+            </tr>
+            <tr>
+                <td>p_2ndWon</td>
+                <td>Player's number of second-serve points won.</td>
+            </tr>
+            <tr>
+                <td>p_SvGms</td>
+                <td>Player's number of serve games.</td>
+            </tr>
+            <tr>
+                <td>p_bpSaved</td>
+                <td>Player's number of break points saved.</td>
+            </tr>
+            <tr>
+                <td>p_bpFaced</td>
+                <td>Player's number of break points faced.</td>
+            </tr>
+        </table>
+
+        <h2>Match Related</h2>
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>score</td>
+                <td>Self-explanatory.</td>
+            </tr>
+            <tr>
+                <td>best_of</td>
+                <td>'3' or '5', indicating the number of sets for this match.</td>
+            </tr>
+            <tr>
+                <td>round</td>
+                <td>Stage of the match within the tournament: with Finals such as :  'QF', 'SF', 'F', initial rounds marked as : 'R16', 'R32', 'R64', 'R128', and qualifiers such as : 'Q1', 'Q2', 'Q3',
+                    Round Robin - 'RR', Backhand Rally / Informal Match -'BR', EarlyRound-'ER', Finals - 'f']</td>
+            </tr>
+            <tr>
+                <td>minutes</td>
+                <td>Match length, where available.</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
